@@ -89,7 +89,13 @@ extension Product.Tier.ID {
 
 extension Product.Tier.ID {
     // Helper computed properties
-    package func currentPlanDisplayName(hasAnalyticsPack: Bool) -> String {
+    //
+    // `public`, not `package`: this was package-visible while Products lived inside
+    // repotraffic, where AccountLive reached it across targets of the same package.
+    // Extraction put a package boundary between them and `package` access does not
+    // cross one, so the helper joins this package's public surface rather than having
+    // its one consumer reimplement display logic the catalogue owns.
+    public func currentPlanDisplayName(hasAnalyticsPack: Bool) -> String {
         var name =
             Product.Tier.all.first(where: { $0.id == self })?.displayName
             ?? Product.Tier.weekly.displayName
