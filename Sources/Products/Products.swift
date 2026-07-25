@@ -41,7 +41,7 @@ extension ProductsService.Client: Dependency.Key.Test {
 
 // W-E2 DI ROOT (di-composition-root-design.md §4.5): the accessor lives HERE, in the
 // interface module, and binds the Test-only subscript overload by design — the app's
-// composition root (com_repotraffic_app/Application.swift) registers the live value
+// composition root registers the live value
 // (explicit overrides resolve ahead of mode defaults), and an UNREGISTERED live-mode
 // resolution fails loud, naming this key (§4.2 tripwire). Consumers import the
 // interface, never the Live module. (Reverts the W-3 DI-ACCESSOR SWEEP relocation.)

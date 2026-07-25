@@ -1,6 +1,6 @@
 //
-//  File.swift
-//  repotraffic-com-server
+//  Products+Live.swift
+//  swift-products
 //
 //  Created by Coen ten Thije Boonkkamp on 18/09/2025.
 //

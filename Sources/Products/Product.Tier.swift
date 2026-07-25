@@ -91,7 +91,8 @@ extension Product.Tier.ID {
     // Helper computed properties
     //
     // `public`, not `package`: this was package-visible while Products lived inside
-    // repotraffic, where AccountLive reached it across targets of the same package.
+    // its original server package, where the account layer reached it across targets
+    // of that same package.
     // Extraction put a package boundary between them and `package` access does not
     // cross one, so the helper joins this package's public surface rather than having
     // its one consumer reimplement display logic the catalogue owns.
