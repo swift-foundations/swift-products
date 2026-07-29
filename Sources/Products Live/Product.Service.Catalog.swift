@@ -1,5 +1,5 @@
 import Products
 
-extension ProductsService {
+extension Product.Service {
     enum Catalog {}
 }

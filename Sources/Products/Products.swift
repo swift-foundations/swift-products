@@ -1,23 +1,25 @@
 public import Dependencies
 
-// NOTE (works-first rename, run-arc 2026-07-12): this DI facade was named `Products`,
-// which shadowed the module name `Products` and made `Products.Product` (module-qualified
-// domain type) unresolvable. The domain `Product` collides with `Product_Primitives.Product`
-// (a variadic-tuple type leaked transitively via parser/tagged primitives), so callers that
-// see both must module-qualify as `Products.Product` — impossible while this struct shadowed
-// the module. Renamed to `ProductsService` to free the module qualifier.
-// PARKED durable alternative (morning ⚑, do NOT act tonight): keep the app `Product` name and
-// stop `Product_Primitives.Product` from leaking into the app graph (namespace it under a nest
-// per [API-NAME-001] in product-primitives, out of app zone), after which this rename reverts.
-public struct ProductsService: @unchecked Sendable {
-    public var client: Client
+// NOTE (naming pass, 2026-07-28): this DI facade must NOT be named `Products` — that
+// shadows the module name `Products` and makes `Products.Product` (the module-qualified
+// domain type) unresolvable in consumers. The domain `Product` collides with
+// `Product_Primitives.Product`, a variadic-tuple type legitimately re-exported by
+// `swift-parser-primitives` (`public typealias Failure = Product<…>` in Parser.OneOf.*),
+// so callers that see both MUST module-qualify as `Products.Product`. Nesting the facade
+// under the domain type satisfies `Nest.Name` ([API-NAME-001]) without reclaiming the
+// module qualifier. Verified 2026-07-28: naming this `Products` fails swift-pricing's
+// build at the @Witness expansion in Pricing.swift.
+extension Product {
+    public struct Service: @unchecked Sendable {
+        public var client: Client
 
-    public init(client: Client) {
-        self.client = client
+        public init(client: Client) {
+            self.client = client
+        }
     }
 }
 
-extension ProductsService {
+extension Product.Service {
     @Witness
     public struct Client: Sendable {
         public var catalog: @Sendable () async throws -> Product.Catalog
@@ -29,7 +31,7 @@ extension ProductsService {
     }
 }
 
-extension ProductsService.Client: Dependency.Key.Test {
+extension Product.Service.Client: Dependency.Key.Test {
     public static var testValue: Self {
         Self(
             catalog: { Product.Catalog.default },
@@ -46,13 +48,13 @@ extension ProductsService.Client: Dependency.Key.Test {
 // resolution fails loud, naming this key (§4.2 tripwire). Consumers import the
 // interface, never the Live module. (Reverts the W-3 DI-ACCESSOR SWEEP relocation.)
 extension Dependency.Values {
-    public var products: ProductsService {
-        get { self[ProductsService.self] }
-        set { self[ProductsService.self] = newValue }
+    public var products: Product.Service {
+        get { self[Product.Service.self] }
+        set { self[Product.Service.self] = newValue }
     }
 }
 
-extension ProductsService: Dependency.Key.Test {
+extension Product.Service: Dependency.Key.Test {
     public static var testValue: Self {
         Self(client: .testValue)
     }

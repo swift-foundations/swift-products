@@ -8,7 +8,7 @@
 public import Dependencies
 public import Products
 
-extension ProductsService: Dependency.Key {
+extension Product.Service: Dependency.Key {
     public static var liveValue: Self {
         .init(
             client: .liveValue
@@ -16,19 +16,19 @@ extension ProductsService: Dependency.Key {
     }
 }
 
-extension ProductsService.Client: Dependency.Key {
+extension Product.Service.Client: Dependency.Key {
     public static var liveValue: Self {
-        let catalog = ProductsService.Catalog.Policy.catalog
+        let catalog = Product.Service.Catalog.Policy.catalog
 
         return .init(
             catalog: {
                 catalog
             },
             validate: { plan in
-                ProductsService.Plan.Policy.valid(plan, in: catalog)
+                Product.Service.Plan.Policy.valid(plan, in: catalog)
             },
             capabilities: { plan in
-                ProductsService.Plan.Policy.capabilities(for: plan, in: catalog)
+                Product.Service.Plan.Policy.capabilities(for: plan, in: catalog)
             }
         )
     }

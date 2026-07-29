@@ -1,10 +1,10 @@
 import Products
 
-extension ProductsService.Plan {
+extension Product.Service.Plan {
     enum Policy {}
 }
 
-extension ProductsService.Plan.Policy {
+extension Product.Service.Plan.Policy {
     static func valid(_ plan: Product.Plan, in catalog: Product.Catalog) -> Bool {
         catalog.isValidPlan(plan)
     }

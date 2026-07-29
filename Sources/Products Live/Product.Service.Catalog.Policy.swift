@@ -1,9 +1,9 @@
 import Products
 
-extension ProductsService.Catalog {
+extension Product.Service.Catalog {
     enum Policy {}
 }
 
-extension ProductsService.Catalog.Policy {
+extension Product.Service.Catalog.Policy {
     static let catalog: Product.Catalog = Product.Catalog.default
 }
