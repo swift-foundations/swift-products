@@ -1,4 +1,3 @@
-
 extension Product {
     /// Concrete entitlements derived from tier + addons
     /// This replaces the simple Set<Capability> with actual values
@@ -62,9 +61,9 @@ extension Product {
     }
 
     public enum ExportFormat: String, Codable, Sendable, CaseIterable {
-        case json = "json"
-        case csv = "csv"
-        case excel = "excel"
-        case pdf = "pdf"
+        case json
+        case csv
+        case excel
+        case pdf
     }
 }

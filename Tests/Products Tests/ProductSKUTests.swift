@@ -124,7 +124,7 @@ struct ProductSKUTests {
             from: Data(#"["api_access","csv_export"]"#.utf8)
         )
 
-        #expect(String(decoding: encoded, as: UTF8.self) == #""api_access""#)
+        #expect(String(bytes: encoded, encoding: .utf8) == #""api_access""#)
         #expect(decoded == [.apiAccess, .csvExport])
     }
 }

@@ -109,10 +109,10 @@ extension Product.Tier.ID {
 
 extension Product {
     public enum RefreshRate: String, Codable, Sendable {
-        case weekly = "weekly"
-        case daily = "daily"
-        case hourly = "hourly"
-        case realtime = "realtime"
+        case weekly
+        case daily
+        case hourly
+        case realtime
 
         public var interval: Duration {
             switch self {
