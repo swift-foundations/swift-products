@@ -1,10 +1,6 @@
 import Dependencies
 public import Tagged_Primitives
 
-public struct Product: Sendable, Codable, Hashable {
-
-}
-
 extension Product {
     // Tier represents the base data freshness product
     public struct Tier: Sendable, Codable, Hashable, Identifiable {
