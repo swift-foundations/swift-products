@@ -22,12 +22,14 @@ extension Product {
 extension Product.Service {
     @Witness
     public struct Client: Sendable {
-        public var catalog: @Sendable () async throws -> Product.Catalog
+        public var catalog: @Sendable () async throws(Product.Service.Error) -> Product.Catalog
 
-        public var validate: @Sendable (_ plan: Product.Plan) async throws -> Bool
+        public var validate:
+            @Sendable (_ plan: Product.Plan) async throws(Product.Service.Error) -> Bool
 
         public var capabilities:
-            @Sendable (_ plan: Product.Plan) async throws -> Set<Product.Capability>
+            @Sendable (_ plan: Product.Plan) async throws(Product.Service.Error)
+                -> Set<Product.Capability>
     }
 }
 
