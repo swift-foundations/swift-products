@@ -13,6 +13,7 @@ extension Target.Dependency {
     static var dependencies: Self { .product(name: "Dependencies", package: "swift-dependencies") }
     static var entitlement: Self { .product(name: "Entitlement", package: "swift-entitlement") }
     static var tagged: Self { .product(name: "Tagged Primitives", package: "swift-tagged-primitives") }
+    static var witnesses: Self { .product(name: "Witnesses", package: "swift-witnesses") }
 }
 
 let package = Package(
@@ -39,6 +40,7 @@ let package = Package(
         .package(url: "https://github.com/swift-foundations/swift-dependencies.git", branch: "main"),
         .package(url: "https://github.com/swift-foundations/swift-entitlement.git", branch: "main"),
         .package(url: "https://github.com/swift-primitives/swift-tagged-primitives.git", branch: "main"),
+        .package(url: "https://github.com/swift-foundations/swift-witnesses.git", branch: "main"),
     ],
     targets: [
         .target(
@@ -47,6 +49,7 @@ let package = Package(
                 .dependencies,
                 .entitlement,
                 .tagged,
+                .witnesses,
             ]
         ),
         .target(
