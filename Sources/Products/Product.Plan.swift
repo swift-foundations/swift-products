@@ -11,7 +11,7 @@ extension Product {
 
         public init(
             tier: Tier.ID,
-            addons: some Sequence<Addon.ID> = []
+            addons: some Swift.Sequence<Addon.ID> = []
         ) {
             self.tier = tier
             self.addons = Set(addons)
