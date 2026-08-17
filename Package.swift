@@ -19,12 +19,12 @@ extension Target.Dependency {
 let package = Package(
     name: "swift-products",
     platforms: [
-        .macOS(.v26),
-        .iOS(.v26),
+        .macOS("27"),
+        .iOS("27"),
         .macCatalyst(.v26),
-        .tvOS(.v26),
-        .watchOS(.v26),
-        .visionOS(.v26),
+        .tvOS("27"),
+        .watchOS("27"),
+        .visionOS("27"),
     ],
     products: [
         .library(
