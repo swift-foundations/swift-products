@@ -1,4 +1,4 @@
-// swift-tools-version: 6.3.3
+// swift-tools-version: 6.4
 
 import PackageDescription
 
@@ -12,19 +12,21 @@ extension Target.Dependency {
     static var products: Self { .target(name: .products) }
     static var dependencies: Self { .product(name: "Dependencies", package: "swift-dependencies") }
     static var entitlement: Self { .product(name: "Entitlement", package: "swift-entitlement") }
-    static var tagged: Self { .product(name: "Tagged Primitives", package: "swift-tagged-primitives") }
+    static var tagged: Self {
+        .product(name: "Tagged Primitives", package: "swift-tagged-primitives")
+    }
     static var witnesses: Self { .product(name: "Witnesses", package: "swift-witnesses") }
 }
 
 let package = Package(
     name: "swift-products",
     platforms: [
-        .macOS(.v26),
-        .iOS(.v26),
-        .macCatalyst(.v26),
-        .tvOS(.v26),
-        .watchOS(.v26),
-        .visionOS(.v26),
+        .macOS(.v27),
+        .iOS(.v27),
+        .macCatalyst(.v27),
+        .tvOS(.v27),
+        .watchOS(.v27),
+        .visionOS(.v27),
     ],
     products: [
         .library(
@@ -37,9 +39,15 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/swift-foundations/swift-dependencies.git", branch: "main"),
+        .package(
+            url: "https://github.com/swift-foundations/swift-dependencies.git",
+            branch: "main"
+        ),
         .package(url: "https://github.com/swift-foundations/swift-entitlement.git", branch: "main"),
-        .package(url: "https://github.com/swift-primitives/swift-tagged-primitives.git", branch: "main"),
+        .package(
+            url: "https://github.com/swift-primitives/swift-tagged-primitives.git",
+            branch: "main"
+        ),
         .package(url: "https://github.com/swift-foundations/swift-witnesses.git", branch: "main"),
     ],
     targets: [
