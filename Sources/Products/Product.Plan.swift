@@ -1,5 +1,5 @@
 import Dependencies
-public import Entitlement
+import Entitlement
 import Foundation
 public import Tagged_Primitives
 
