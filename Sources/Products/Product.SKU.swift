@@ -1,24 +1,22 @@
 public import Tagged_Primitives
 
 extension Product {
-    /// Stable identity for billing/Stripe mapping
-    /// Ensures deterministic ID regardless of addon ordering
+
     public struct SKU: Sendable, Codable, Hashable, Identifiable {
         public typealias ID = Tagged<Self, String>
 
         public let id: Product.SKU.ID
         public let tier: Tier.ID
-        public let addons: [Addon.ID]  // Always sorted for determinism
+        public let addons: [Addon.ID]
 
         public init(
             tier: Tier.ID,
             addons: some Swift.Sequence<Addon.ID>
         ) {
             self.tier = tier
-            // Sort addons to ensure consistent ID
+
             self.addons = Set(addons).sorted { $0.underlying < $1.underlying }
 
-            // Generate deterministic ID
             let addonStr = self.addons.map(\.underlying).joined(separator: "+")
             let idString =
                 addonStr.isEmpty
@@ -30,7 +28,7 @@ extension Product {
 }
 
 extension Product.SKU {
-    // Convenience init from Plan
+
     public init(from plan: Product.Plan) {
         self.init(tier: plan.tier, addons: plan.addons)
     }

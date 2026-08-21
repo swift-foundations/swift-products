@@ -1,10 +1,3 @@
-//
-//  ProductSKUTests.swift
-//  Products Tests
-//
-//  Tests for Product SKU functionality
-//
-
 import Dependencies
 import Dependencies_Test_Support
 import Foundation
@@ -30,16 +23,13 @@ struct ProductSKUTests {
 
         #expect(sku.tier == .hourly)
         #expect(sku.addons == [.analytics])
-        // RT-027 (2026-07-16): SKU id separator is ':' in current source
-        // (Product.SKU.swift:26); no consumer keys off the literal form.
+
         #expect(sku.id.underlying == "hourly:analytics")
     }
 
     @Test("SKU addons are sorted for consistent ID")
     func skuAddonsSorting() {
-        // RT-027 (2026-07-16): '.premium' is not part of the current Addon.ID
-        // vocabulary (analytics/teamAccess/customAlerts); the test's intent is
-        // order-independence of the derived ID, which any two distinct addons prove.
+
         let sku1 = Product.SKU(tier: .daily, addons: [.teamAccess, .analytics])
         let sku2 = Product.SKU(tier: .daily, addons: [.analytics, .teamAccess])
 

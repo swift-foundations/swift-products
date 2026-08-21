@@ -1,6 +1,5 @@
 extension Product {
-    /// Concrete entitlements derived from tier + addons
-    /// This replaces the simple Set<Capability> with actual values
+
     public struct Entitlements: Sendable, Codable, Equatable {
         public let refreshInterval: Duration
         public let exportFormats: Set<ExportFormat>
@@ -19,7 +18,6 @@ extension Product {
             self.advancedAnalytics = advancedAnalytics
         }
 
-        /// Derive entitlements from a plan using the catalog
         public static func from(plan: Plan, catalog: Catalog) -> Entitlements? {
             guard let tier = catalog.getTier(plan.tier) else { return nil }
 
@@ -28,7 +26,6 @@ extension Product {
             var apiAccess = false
             var advancedAnalytics = false
 
-            // Base tier capabilities
             if tier.baseCapabilities.contains(.csvExport) {
                 exportFormats.insert(.csv)
             }
@@ -39,7 +36,6 @@ extension Product {
                 exportFormats.insert(.pdf)
             }
 
-            // Addon capabilities
             for addonId in plan.addons {
                 guard let addon = catalog.getAddon(addonId) else { continue }
 

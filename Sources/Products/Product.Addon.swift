@@ -2,7 +2,7 @@ import Dependencies
 public import Tagged_Primitives
 
 extension Product {
-    // Addon represents optional features that enhance any tier
+
     public struct Addon: Sendable, Codable, Hashable, Identifiable {
         public typealias ID = Tagged<Self, String>
 
@@ -28,7 +28,6 @@ extension Product {
     }
 }
 
-// Standard addons
 extension Product.Addon {
     public static let analytics = Self(
         id: .analytics,
@@ -38,7 +37,6 @@ extension Product.Addon {
         capabilities: [.advancedAnalytics, .apiAccess]
     )
 
-    // Future addons (defined for planning)
     public static let teamAccess = Self(
         id: .teamAccess,
         name: "Team Access",
@@ -58,9 +56,6 @@ extension Product.Addon {
     public static let all: [Self] = [.analytics]
 }
 
-// Pricing has been moved to Billing.PricingStrategy
-
-// Static IDs for type-safe access
 extension Product.Addon.ID {
     public static let analytics = Self("analytics")
     public static let teamAccess = Self("team")
